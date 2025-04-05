@@ -1,6 +1,16 @@
 import numpy as np
 import math
 import matplotlib.pyplot as plt
+import matplotlib.mplot3d as axes3d
+
+
+class Barrier:
+    def __init__(self, *points):
+        
+        
+
+        for i in points:
+
 
 #cleanup item
 class Vector:
@@ -39,8 +49,10 @@ class Grid:
         ax = fig.add_subplot(11, projection='3d')
 
         ax.scatter(self.X, self.Y, self.Z, color = 'b', alpha = 0.1)
-        ax.scatter(self.start.x, self.start.y, self.start.z, color = 'g', label = 'start')
-        ax.scatter(self.target.x, self.target.y, self.target.z, color = 'r', label = 'target')
+        if self.start:
+            ax.scatter(self.start.x, self.start.y, self.start.z, color = 'g', label = 'start')
+        if self.target:
+            ax.scatter(self.target.x, self.target.y, self.target.z, color = 'r', label = 'target')
 
         ax.set_xlabel('X')
         ax.set_ylabel('Y')
@@ -48,6 +60,9 @@ class Grid:
         ax.legend()
 
         plt.show()
+
+    def make_barrier(self, ):
+        
 
     #returns x y and z distance between start and target
     def set_distance_to_target(self):

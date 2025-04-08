@@ -3,13 +3,13 @@ import math
 import matplotlib.pyplot as plt
 import matplotlib.mplot3d as axes3d
 
+'''
+Use this file to generate a 3 dimensional mesh-grid that can be used as a single frame.
+A grid will be "drawn" which includes a known position, a target destination, and known barriers around the points.
+Then use vectorizations to determine a "path" between the two points, then use external input equation of state to determine how to manipulate drive system to travel from known point to the target.
+Each time the target position is reached, move to generate a new frame.
+'''
 
-class Barrier:
-    def __init__(self, *points):
-        
-        
-
-        for i in points:
 
 
 #cleanup item
@@ -30,18 +30,39 @@ class Point:
     def __repr__(self):
         return f"Point(x={self.x}, y={self.y}, z={self.z})"
 
+#pass an array of Point objects to generate a "barrier"
+class Barrier:
+    def __init__(self, *points: Point):
+        Barrier.points = points
+
 #defines a numpy meshgrid of linear spacing across x y and z coordinates
 class Grid:
     def __init__(self, x_size, y_size, z_size):
-        self.X, self.Y, self.Z = np.meshgrid(np.linspace(0, x_size, x_size), np.linspace(0, y_size, y_size), np.linspace(0, z_size, z_size))
+        argdict = {arg: locals()[arg] 
+                   for arg in 
+                   }
+        self.X, self.Y, self.Z = np.meshgrid(np.linspace(-x_size, x_size, 2*x_size), np.linspace(-y_size, y_size, 2*y_size), np.linspace(0, z_size, z_size))
+        self.xresolution = 
 
-    #define a target positionition to navigate to
+    #define a target position to navigate to
     def set_target(self, x_position, y_position, z_position):
         self.target = Point(x_position, y_position, z_position)
 
-    #define a current positionition 
+    #define a current position
     def set_start(self, x_position, y_position, z_position):
         self.start = Point(x_position, y_position, z_position)
+
+    def set_barriers(self, Barrier):
+        for i in Barrier:
+            self.invalid = Point(Barrier[i].x_position, Barrier[i].y_position, Barrier[i].z_position)
+
+    def check_isTarget(self):
+        return(self.target=self.start)
+
+    def check_isInBarrier(self):
+        for i in self.invalid:
+            if(self.start = self.invalid[i]):
+                return True
 
     #visualize current grid frame
     def visualize_3D_grid(self):
@@ -61,9 +82,6 @@ class Grid:
 
         plt.show()
 
-    def make_barrier(self, ):
-        
-
     #returns x y and z distance between start and target
     def set_distance_to_target(self):
         self.distance = Vector() #initialize the pseudo-vector item
@@ -72,3 +90,7 @@ class Grid:
         self.distance.z = self.target.z - self.start.z
 
         self.distance.magnitude = math.sqrt(self.distance.x^2 + self.distance.y^2 + self.distance.z^2)
+    
+    def clean_points(self, *points: Point):
+        for point in points:
+            
